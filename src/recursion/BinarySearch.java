@@ -4,18 +4,27 @@ public class BinarySearch {
 
     // tail recursion
     public static boolean binarySearch(int[] data, int target, int low, int high) {
+        boolean cond;
         if (low > high) {
-            return false; // interval empty; no match
+            cond = false; // interval empty; no match
         } else {
             int mid = (low + high) / 2;
             if (target == data[mid]) {
-                return true; // found a match
+                cond = true; // found a match
             } else if (target < data[mid]) {
-                return binarySearch(data, target, low, mid - 1);
+                System.out.println("here1");
+                cond =  binarySearch(data, target, low, mid - 1);
             } else {
-                return binarySearch(data, target, mid + 1, high);
+                System.out.println("here2");
+                cond = binarySearch(data, target, mid + 1, high);
             }
         }
+        return cond;
+    }
+    
+    public static void main(String[] args) {
+        int[] data = {2, 4, 3, 7, 9, 10};
+        System.out.println(binarySearch(data, 7, 0, data.length));
     }
 
 }
