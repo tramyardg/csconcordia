@@ -1,5 +1,6 @@
-package recursion;
+package test;
 
+import recursion.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -8,7 +9,9 @@ import java.util.Scanner;
 public class RightWingCaveQueue {
 
     public static void main(String[] args) {
-        setupCave();
+//        setupCave();
+        int[] A = {2, 8, 4, 3, 5, 8, 2, 9, 4, 0};
+        System.out.println(RWC(A, A.length));
     }//end of main
 
     public static void setupCave() {
@@ -94,7 +97,8 @@ public class RightWingCaveQueue {
                 markerPosition -= currentSquareVal;
             } else if ((rightGap > leftGap) && (markerPosition + currentSquareVal < nsq)) {
                 markerPosition += currentSquareVal;
-            }
+            } 
+            
 
         } while (!solved); //win condition
 

@@ -1,5 +1,6 @@
-package recursion;
+package test;
 
+import recursion.*;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
