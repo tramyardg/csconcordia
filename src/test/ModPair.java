@@ -32,9 +32,10 @@ public class ModPair {
         String str = "All pairs of elements of the array that modulo up to a value of " + x + " are: \n";
         for (int i = 0; i < A.length; i++) {
             for (int j = i; j < A.length - 1; j++) {
-                if (A[i] % A[j + 1] == x) {
-                    str += "Indices " + i + " & " + (j+1) + " with values " + A[i] + " & " + A[j + 1] + " \n";
-                }
+                System.out.println("index: i> " + i + " index: j> " + j);
+//                if (A[i] % A[j + 1] == x) {
+//                    str += "Indices " + i + " & " + (j+1) + " with values " + A[i] + " & " + A[j + 1] + " \n";
+//                }
             }
 
         }
