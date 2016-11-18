@@ -12,7 +12,25 @@ public class Test {
     public static void main(String[] args) {
         int x = 2;
         int n = 13;
-        System.out.println(powerRecursion2(x, n));
+//        System.out.println(powerRecursion2(x, n));
+        int[] arr1 = {2,4,6};
+        int[] arr2 = {-2,8,6};
+        System.out.println(isEqualElem(arr1, arr2));
+    }
+    
+    public static boolean isEqualElem(int[] list1, int[] list2)
+    {
+        Arrays.sort(list1);
+        Arrays.sort(list2);
+        if(list1.length != list2.length) {
+            return false;
+        }
+        int diff = 0;
+        for(int i = 0; i < list1.length; i ++) {
+            diff += (list1[i]-list2[i]);
+        }
+        System.out.println(diff);
+        return diff == 0;
     }
 
     public static double[] prefixAverage1(double[] x) {
