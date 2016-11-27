@@ -49,7 +49,7 @@ public class ProcessSmartULS {
                 smartULSobj.add(out);
                 
                 // insert keys in the hash table
-                ULSmapping.put(dataFile.nextLine(), out.getUlsValue());
+                ULSmapping.put(dataFile.nextLine(), randomCharValue());
 
                 i++;
             }
@@ -109,7 +109,7 @@ public class ProcessSmartULS {
         s.setUlsValue(v);
         
         // add in the list
-//        smartULSobj.add(s);
+        smartULSobj.add(s);
         
         // add in the hash table
         ULSmapping.put(k, v);
@@ -119,7 +119,7 @@ public class ProcessSmartULS {
             System.out.println("  Added!");
         } else {
             System.out.println("Trying to INSERT: '[" + k + ", "+ v + "]'");
-            System.out.println("  This key does not exists!");
+            System.out.println("  This key already exists!");
         }
         
        
@@ -138,9 +138,9 @@ public class ProcessSmartULS {
             if (k.equalsIgnoreCase(entry.getKey())) {
                 isKeyExists = true;
                 iter.remove();
+                break;
             }
         }
-        
         
         if(isKeyExists) {
             System.out.println("Trying to REMOVE: '[" + k + "]'");
@@ -156,11 +156,11 @@ public class ProcessSmartULS {
         String tempVal = "";
         Iterator<Map.Entry<String, String>> iter = ULSmapping.entrySet().iterator();
         while (iter.hasNext()) {
-            
             Map.Entry<String, String> entry = iter.next();
             if (k.equalsIgnoreCase(entry.getKey())) {
                 tempVal = entry.getValue();
                 isKeyExists = true;
+                break;
             }
         }
         
@@ -269,7 +269,6 @@ public class ProcessSmartULS {
             String randomVal  = randomCharValue();
             s.setUlsKey(k);
             s.setUlsValue(randomVal);
-            
         }
         return s;
     }
@@ -307,10 +306,11 @@ public class ProcessSmartULS {
 
     }
     
-    public void validKeyLength(String keyLengh) {
-        if(keyLengh.length() > 8) {
+    public void validKeyLength(String k) {
+        if(k.length() > 8) {
+            System.out.println("Trying to INSERT: '[" + k + "]'");
             System.out.println("Please enter a key <= 8 digits.");
-            System.out.println("Current key length " + keyLengh.length() + " digits.");
+            System.out.println("Current key length " + k.length() + " digits.");
             System.exit(0);
         } 
     }

@@ -49,7 +49,7 @@ public class SmartULSDemo {
         p.remove("999"); // not exists
         
         
-        p.getValues("83290952"); // not exists
+        p.getValues("111111"); 
         
         
         System.out.println("");
