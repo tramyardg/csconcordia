@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -40,14 +39,14 @@ public class ProcessSmartULS {
         try {
             // read the content and store it here
             dataFile = new Scanner(new BufferedReader(new FileReader(fileName)));
-//            SmartULS out;
+            SmartULS out;
             int i = 0;
             while (dataFile.hasNext() && i < size) {
                 // generate a key value pair
-//                out = storeProcessedSmartULSData(dataFile);
+                out = storeProcessedSmartULSData(dataFile);
                 
                 // add the generated list to SmartULS list object
-//                smartULSobj.add(out);
+                smartULSobj.add(out);
                 
                 // insert keys in the hash table
                 ULSmapping.put(dataFile.nextLine(), randomCharValue());
@@ -91,7 +90,7 @@ public class ProcessSmartULS {
     
     
     
-    public void add(String k, String v) {
+    public void add(SmartULS s, String k, String v) {
         boolean isKeyExists = false; 
         
         // check key length before adding
@@ -106,8 +105,8 @@ public class ProcessSmartULS {
             }
         }
         
-//        s.setUlsKey(k);
-//        s.setUlsValue(v);
+        s.setUlsKey(k);
+        s.setUlsValue(v);
         
         // add in the list
 //        smartULSobj.add(s);

@@ -16,6 +16,7 @@ public class SmartULSDemo {
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
+        SmartULS s = new SmartULS();
         int thresholdSize;
         do {
             System.out.print("Enter test data size >= 10: ");
@@ -34,12 +35,12 @@ public class SmartULSDemo {
         
         
         // insertion demo
-        p.add("123232", "N"); // ok add
-        p.add("999999", "Q"); // ok add
-        p.add("999999", "O"); // duplicate don't add
+        p.add(s, "123232", "N"); // ok add
+        p.add(s, "999999", "Q"); // ok add
+        p.add(s, "999999", "O"); // duplicate don't add
         
         // generate keys demo
-        p.add(p.generate(), "P"); // ok add
+        p.add(s, p.generate(), "P"); // ok add
         
         
         // removal demo
