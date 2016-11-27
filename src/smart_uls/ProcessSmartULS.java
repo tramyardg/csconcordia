@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -18,7 +17,7 @@ import java.util.Random;
  * @author RAYMARTHINKPAD
  */
 public class ProcessSmartULS {
-    
+
     private final int MAX_DIGIT_SIZE = 99999999;
     private int size;
     private final Random rand = new Random();
@@ -61,35 +60,35 @@ public class ProcessSmartULS {
             br.close();
         }
     }
-    
+
     /**
-     * Using radix sort we can sort the keys  if the input
-     * as a sorted sequence 
-     * @return  
+     * Using radix sort we can sort the keys if the input as a sorted sequence
+     *
+     * @return
      */
     public int[] allKeys() {
         int[] radixInput = new int[ulsEntrySet.keySet().toArray().length];
-        for(int i = 0; i < ulsEntrySet.keySet().toArray().length; i++) {
+        for (int i = 0; i < ulsEntrySet.keySet().toArray().length; i++) {
             radixInput[i] = Integer.parseInt((String) ulsEntrySet.keySet().toArray()[i]);
         }
         RadixSort.radixsort(radixInput);
         System.out.println("The list of keys sorted with radix sort.");
         return radixInput;
     }
-    
+
     public void allkeysSortedByTree() {
         System.out.println("Sorted by tree map: ");
         ulsEntrySet.keySet().stream().forEach((str) -> {
             System.out.println(str);
         });
     }
-    
+
     public void add(SmartULS s, String k, String v) {
-        if(validateKeyLength(k)) {
+        if (validateKeyLength(k)) {
             opMessage("INSERT", k);
             displayCommonMsg("invalidKey");
-        } else if(ulsEntrySet.containsKey(k)){            
-            opMessage("INSERT", k); 
+        } else if (ulsEntrySet.containsKey(k)) {
+            opMessage("INSERT", k);
             displayCommonMsg("exists");
         } else {
             ulsEntrySet.put(k, v);
@@ -100,12 +99,12 @@ public class ProcessSmartULS {
         s.setUlsValue(v);
         smartULSList.add(s);
     }
-    
+
     public void remove(String k) {
-        if(validateKeyLength(k)) {
+        if (validateKeyLength(k)) {
             opMessage("REMOVE", k);
             displayCommonMsg("invalidKey");
-        } else if(ulsEntrySet.containsKey(k)){            
+        } else if (ulsEntrySet.containsKey(k)) {
             ulsEntrySet.remove(k);
             opMessage("REMOVE", k);
             displayCommonMsg("removed");
@@ -117,7 +116,7 @@ public class ProcessSmartULS {
 
     public String getValues(String k) {
         String tempVal = "";
-        if(validateKeyLength(k)) {
+        if (validateKeyLength(k)) {
             opMessage("SEARCH", k);
             displayCommonMsg("invalidKey");
         } else if (ulsEntrySet.containsKey(k)) {
@@ -133,21 +132,21 @@ public class ProcessSmartULS {
             opMessage("SEARCH", k);
             displayCommonMsg("notExists");
         }
-        
+
         return tempVal;
     }
-    
+
     /**
      * @param k
      * @return the next element after k
      */
     public String nextKey(String k) {
         String nextK = null;
-        if(this.validateKeyLength(k)) {
+        if (this.validateKeyLength(k)) {
             opMessage("FIND the NEXT key afer", k);
             displayCommonMsg("invalidKey");
-        } else if(ulsEntrySet.containsKey(k)){       
-            for (int i = 0; i < ulsEntrySet.keySet().toArray().length-1; i++) {
+        } else if (ulsEntrySet.containsKey(k)) {
+            for (int i = 0; i < ulsEntrySet.keySet().toArray().length - 1; i++) {
                 if (k.equals(ulsEntrySet.keySet().toArray()[i])) {
                     nextK = (String) ulsEntrySet.keySet().toArray()[i + 1];
                     break;
@@ -161,17 +160,17 @@ public class ProcessSmartULS {
         }
         return nextK; // returns the last element of the list
     }
-    
+
     /**
      * @param k
      * @return get the previous key before k
      */
     public String prevKey(String k) {
         String prevK = null;
-        if(this.validateKeyLength(k)) {
+        if (this.validateKeyLength(k)) {
             opMessage("FIND the PREV key before", k);
             displayCommonMsg("invalidKey");
-        } else if(ulsEntrySet.containsKey(k)){   
+        } else if (ulsEntrySet.containsKey(k)) {
             for (int i = 0; i < ulsEntrySet.keySet().toArray().length; i++) {
                 if (k.equals(ulsEntrySet.keySet().toArray()[i]) && i > 0) {
                     prevK = (String) ulsEntrySet.keySet().toArray()[i - 1];
@@ -186,7 +185,7 @@ public class ProcessSmartULS {
         }
         return prevK;
     }
-    
+
     /**
      * @param key1 fromKey
      * @param key2 toKey
@@ -195,10 +194,10 @@ public class ProcessSmartULS {
     public String rangeKey(String key1, String key2) {
         boolean isIntheRange = false;
         List<String> keysInRange = new ArrayList<>();
-        if(this.validateKeyLength(key1) || this.validateKeyLength(key2)) {
+        if (this.validateKeyLength(key1) || this.validateKeyLength(key2)) {
             System.out.println("Trying to find the RANGE of keys between: '[" + key1 + "]' and '[" + key2 + "]'");
             displayCommonMsg("invalidKey");
-        } else if(ulsEntrySet.containsKey(key1) && ulsEntrySet.containsKey(key2)) {
+        } else if (ulsEntrySet.containsKey(key1) && ulsEntrySet.containsKey(key2)) {
             for (Map.Entry<String, String> entry : ulsEntrySet.entrySet()) {
                 if (entry.getKey().equals(key1)) { // first get the position of first key
                     isIntheRange = true;
@@ -218,7 +217,7 @@ public class ProcessSmartULS {
         }
         return keysInRange.toString();
     }
-    
+
     /**
      * rangeKey(key1, key2): returns the number of keys that are within the
      * specified range of the two keys key1 and key2.
@@ -231,13 +230,13 @@ public class ProcessSmartULS {
     public SmartULS storeProcessedSmartULSData(String dataFile) throws IOException {
         SmartULS s = new SmartULS();
         for (int i = 0; i < this.size; i++) {
-            String randomVal  = randomCharValue();
+            String randomVal = randomCharValue();
             s.setUlsKey(dataFile);
             s.setUlsValue(randomVal);
         }
         return s;
     }
-    
+
     /**
      * @return assign a random char for keys
      */
@@ -267,13 +266,13 @@ public class ProcessSmartULS {
         } while (ulsEntrySet.containsKey(String.valueOf(ranNum)));
         return String.valueOf(ranNum);
     }
-    
+
     public void displayCurrentContents() {
         ulsEntrySet.entrySet().stream().forEach((str) -> {
             System.out.println(str);
         });
     }
-    
+
     /**
      * @param k key to be processed
      * @return true if key is > 8
@@ -281,19 +280,19 @@ public class ProcessSmartULS {
     public boolean validateKeyLength(String k) {
         return k.length() > 8 || k.length() == 0;
     }
-    
-    public void opMessage(String msg, String k){
-        System.out.println("Trying to "+msg+": '[" + k + "]'");
+
+    public void opMessage(String msg, String k) {
+        System.out.println("Trying to " + msg + ": '[" + k + "]'");
     }
-    
+
     public void displayCommonMsg(String msg) {
         switch (msg) {
-            case "invalidKey": 
+            case "invalidKey":
                 System.out.println("  > Invalid key length!");
                 break;
             case "notExists":
                 System.out.println("  > This key does not exists!");
-                break; 
+                break;
             case "exists":
                 System.out.println("  > This key already exists!");
                 break;
