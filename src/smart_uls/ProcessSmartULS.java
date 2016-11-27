@@ -85,42 +85,41 @@ public class ProcessSmartULS {
     }
     
     public void add(SmartULS s, String k, String v) {
-        if(this.validateKeyLength(k)) {
-            System.out.println("Trying to INSERT: '[" + k + ", "+ v + "]'");
-            System.out.println("  > Invalid key length!");
+        if(validateKeyLength(k)) {
+            opMessage("INSERT", k);
+            displayCommonMsg("invalidKey");
         } else if(ulsEntrySet.containsKey(k)){            
-            System.out.println("Trying to INSERT: '[" + k + ", "+ v + "]'");
-            System.out.println("  > This key already exists!");  
+            opMessage("INSERT", k); 
+            displayCommonMsg("exists");
         } else {
             ulsEntrySet.put(k, v);
-            System.out.println("Trying to INSERT: '[" + k + ", "+ v + "]'");
-            System.out.println("  > Added!");
+            opMessage("INSERT", k);
+            displayCommonMsg("added");
         }
-        
         s.setUlsKey(k);
         s.setUlsValue(v);
         smartULSList.add(s);
     }
     
     public void remove(String k) {
-        if(this.validateKeyLength(k)) {
-            System.out.println("Trying to REMOVE: '[" + k + "]'");
-            System.out.println("  > Invalid key length!");
+        if(validateKeyLength(k)) {
+            opMessage("REMOVE", k);
+            displayCommonMsg("invalidKey");
         } else if(ulsEntrySet.containsKey(k)){            
             ulsEntrySet.remove(k);
-            System.out.println("Trying to REMOVE: '[" + k + "]'");
-            System.out.println("  > Removed!"); 
+            opMessage("REMOVE", k);
+            displayCommonMsg("removed");
         } else {
-            System.out.println("Trying to REMOVE: '[" + k + "]'");
-            System.out.println("  > This key does not exists");
+            opMessage("REMOVE", k);
+            displayCommonMsg("notExists");
         }
     }
 
     public String getValues(String k) {
         String tempVal = "";
-        if(this.validateKeyLength(k)) {
-            System.out.println("Trying to SEARCH: '[" + k + "]'");
-            System.out.println("  > Invalid key length!");
+        if(validateKeyLength(k)) {
+            opMessage("SEARCH", k);
+            displayCommonMsg("invalidKey");
         } else if (ulsEntrySet.containsKey(k)) {
             for (int i = 0; i < ulsEntrySet.keySet().toArray().length; i++) {
                 if (k.equals(ulsEntrySet.keySet().toArray()[i])) {
@@ -128,11 +127,11 @@ public class ProcessSmartULS {
                     break;
                 }
             }
-            System.out.println("Trying to SEARCH: '[" + k + "]'");
+            opMessage("SEARCH", k);
             System.out.println("  > Found! " + "The key = '" + k + "'" + " has value a = '" + tempVal + "'");
         } else {
-            System.out.println("Trying to SEARCH: '[" + k + "]'");
-            System.out.println("  > This key does not exists");
+            opMessage("SEARCH", k);
+            displayCommonMsg("notExists");
         }
         
         return tempVal;
@@ -145,8 +144,8 @@ public class ProcessSmartULS {
     public String nextKey(String k) {
         String nextK = null;
         if(this.validateKeyLength(k)) {
-            System.out.println("Trying to FIND the NEXT key afer: '[" + k + "]'");
-            System.out.println("  > Invalid key length!");
+            opMessage("FIND the NEXT key afer", k);
+            displayCommonMsg("invalidKey");
         } else if(ulsEntrySet.containsKey(k)){       
             for (int i = 0; i < ulsEntrySet.keySet().toArray().length-1; i++) {
                 if (k.equals(ulsEntrySet.keySet().toArray()[i])) {
@@ -154,11 +153,11 @@ public class ProcessSmartULS {
                     break;
                 }
             }
-            System.out.println("Trying to FIND the NEXT key afer: '[" + k + "]'");
+            opMessage("FIND the NEXT key afer", k);
             System.out.println("  > Found! " + "The key after = '" + k + "'" + " is = '" + nextK + "'");
         } else {
-            System.out.println("Trying to FIND the NEXT key after: '[" + k + "]'");
-            System.out.println("  > This key does not exists");
+            opMessage("FIND the NEXT key afer", k);
+            displayCommonMsg("notExists");
         }
         return nextK; // returns the last element of the list
     }
@@ -170,23 +169,20 @@ public class ProcessSmartULS {
     public String prevKey(String k) {
         String prevK = null;
         if(this.validateKeyLength(k)) {
-            System.out.println("Trying to FIND the PREV key before: '[" + k + "]'");
-            System.out.println(" > Invalid key length:");
+            opMessage("FIND the PREV key before", k);
+            displayCommonMsg("invalidKey");
         } else if(ulsEntrySet.containsKey(k)){   
             for (int i = 0; i < ulsEntrySet.keySet().toArray().length; i++) {
-//                if (k.equals(ulsEntrySet.keySet().toArray()[i]) && i == 0) {
-//                    prevK = null;
-//                }
                 if (k.equals(ulsEntrySet.keySet().toArray()[i]) && i > 0) {
                     prevK = (String) ulsEntrySet.keySet().toArray()[i - 1];
                     break;
                 }
             }
-            System.out.println("Trying to FIND the PREV key before: '[" + k + "]'");
+            opMessage("FIND the PREV key before", k);
             System.out.println("  > Found! " + "The key before = '" + k + "'" + " is = '" + prevK + "'");
         } else {
-            System.out.println("Trying to FIND the PREV key before: '[" + k + "]'");
-            System.out.println("  > This key does not exists");
+            opMessage("FIND the PREV key before", k);
+            displayCommonMsg("notExists");
         }
         return prevK;
     }
@@ -201,7 +197,7 @@ public class ProcessSmartULS {
         List<String> keysInRange = new ArrayList<>();
         if(this.validateKeyLength(key1) || this.validateKeyLength(key2)) {
             System.out.println("Trying to find the RANGE of keys between: '[" + key1 + "]' and '[" + key2 + "]'");
-            System.out.println("   > Fail! Invalid key length.");
+            displayCommonMsg("invalidKey");
         } else if(ulsEntrySet.containsKey(key1) && ulsEntrySet.containsKey(key2)) {
             for (Map.Entry<String, String> entry : ulsEntrySet.entrySet()) {
                 if (entry.getKey().equals(key1)) { // first get the position of first key
@@ -283,6 +279,30 @@ public class ProcessSmartULS {
      * @return true if key is > 8
      */
     public boolean validateKeyLength(String k) {
-        return k.length() > 8;
+        return k.length() > 8 || k.length() == 0;
+    }
+    
+    public void opMessage(String msg, String k){
+        System.out.println("Trying to "+msg+": '[" + k + "]'");
+    }
+    
+    public void displayCommonMsg(String msg) {
+        switch (msg) {
+            case "invalidKey": 
+                System.out.println("  > Invalid key length!");
+                break;
+            case "notExists":
+                System.out.println("  > This key does not exists!");
+                break; 
+            case "exists":
+                System.out.println("  > This key already exists!");
+                break;
+            case "removed":
+                System.out.println("  > Removed!");
+                break;
+            case "added":
+                System.out.println("  > Added!");
+                break;
+        }
     }
 }

@@ -18,16 +18,16 @@ public class SmartULSDemo {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         ProcessSmartULS p = new ProcessSmartULS();
         SmartULS s = new SmartULS();
-//        String fileName = "uls_test_file3.txt";
-//        System.out.println("File in use: " + fileName);
-//        int thresholdSize;
-//        do {
-//            System.out.print("Enter test data size : ");
-//            sc = new Scanner(System.in);
-//            thresholdSize = sc.nextInt();
-//        } while (thresholdSize < 1);
-//        p.setSmartThresholdULS(thresholdSize);
-//        p.processSmartUlS(fileName);
+        String fileName = "uls_test_file2.txt";
+        System.out.println("File in use: " + fileName);
+        int thresholdSize;
+        do {
+            System.out.print("Enter test data size : ");
+            sc = new Scanner(System.in);
+            thresholdSize = sc.nextInt();
+        } while (thresholdSize < 1);
+        p.setSmartThresholdULS(thresholdSize);
+        p.processSmartUlS(fileName);
         
         System.out.println("Contents of the file before operations:");
         p.displayCurrentContents();
@@ -38,14 +38,14 @@ public class SmartULSDemo {
         
         System.out.println("\nTesting add(SmartULS,key,value) method: ");
         p.add(s, p.generate(), "D");
-        p.add(s, "21212121", "C");
-        p.add(s, "72727272", "C");
+        p.add(s, "2121212121212", "C");
+        p.add(s, "69894475", "E");
         
         System.out.println("\nTesting remove(SmartULS,key) method: ");
-        p.remove("42670685");
-        p.remove("70160448");
+        p.remove("04124349");
+        p.remove("80463726");
+        p.remove("35998989896726");
         
-
         System.out.println("\nTesting getValues(SmartULS,key) method: ");
         p.getValues("21212121");
         p.getValues("70160448");
@@ -59,7 +59,7 @@ public class SmartULSDemo {
         p.prevKey("70120611");
         
         System.out.println("\nTesting rangeKey(key1, key2) method: ");
-        System.out.println(p.rangeKey("60121357", "70147514"));
+        System.out.println(p.rangeKey("46346726", "97209251"));
         
         System.out.println("\nTesting allKeys(SmartULS) method: ");
         System.out.println(Arrays.toString(p.allKeys()));
