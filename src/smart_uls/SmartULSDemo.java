@@ -40,7 +40,7 @@ public class SmartULSDemo {
         p.add(s, "999999", "O"); // duplicate don't add
         
         // generate keys demo
-        p.add(s, p.generate(), "P"); // ok add
+        p.add(s, p.generate(), p.randomCharValue()); // ok add
         
         
         // removal demo

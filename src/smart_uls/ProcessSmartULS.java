@@ -281,19 +281,23 @@ public class ProcessSmartULS {
 
     /**
      * Generate a non-existing key.
-     * 
      * @return 8 digits key
      */
-    public String  generate() {
+    public String generate() {
         int ranNum = rand.nextInt(MAX_DIGIT_SIZE);
-        
-        Iterator<Map.Entry<String, String>> iter = ULSmapping.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry<String, String> entry = iter.next();
-            if (String.valueOf(ranNum).equalsIgnoreCase(entry.getKey())) {
+        String oldNum = String.valueOf(ranNum);
+        // use a do while loop to guarantee that the gerated
+        // key will never exists
+        do {
+            // check if the generated key exists
+            if (ULSmapping.containsKey(oldNum)) {
+                // generate a new one
+                System.out.println("This key already exists!");
+                System.out.println("Genating a new one.");
                 ranNum = rand.nextInt(MAX_DIGIT_SIZE);
             }
-        }
+            // keep generating a new one if the next key exists again
+        } while (ULSmapping.containsKey(String.valueOf(ranNum)));
         return String.valueOf(ranNum);
     }
     
