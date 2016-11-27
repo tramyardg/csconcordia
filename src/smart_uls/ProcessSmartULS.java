@@ -49,7 +49,7 @@ public class ProcessSmartULS {
                 smartULSobj.add(out);
                 
                 // insert keys in the hash table
-                ULSmapping.put(dataFile.nextLine(), randomCharValue());
+                ULSmapping.put(dataFile.nextLine(), out.getUlsValue());
 
                 i++;
             }

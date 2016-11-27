@@ -19,7 +19,7 @@ public class SmartULSDemo {
         SmartULS s = new SmartULS();
         int thresholdSize;
         do {
-            System.out.print("Enter test data size >= 10: ");
+            System.out.print("Enter test data size : ");
             sc = new Scanner(System.in);
             thresholdSize = sc.nextInt();
         } while (thresholdSize < 1);
@@ -57,8 +57,8 @@ public class SmartULSDemo {
         p.displayCurrentContents();
         
         
-        p.nextKey("29063973");
-        p.prevKey("29063973");
+        p.nextKey("03325725");
+        p.prevKey("03325725");
         
         System.out.println(p.rangeKey("33248005", "11111"));
         
