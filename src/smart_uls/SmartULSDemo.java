@@ -18,7 +18,8 @@ public class SmartULSDemo {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         ProcessSmartULS p = new ProcessSmartULS();
         SmartULS s = new SmartULS();
-        
+//        String fileName = "uls_test_file3.txt";
+//        System.out.println("File in use: " + fileName);
 //        int thresholdSize;
 //        do {
 //            System.out.print("Enter test data size : ");
@@ -26,42 +27,45 @@ public class SmartULSDemo {
 //            thresholdSize = sc.nextInt();
 //        } while (thresholdSize < 1);
 //        p.setSmartThresholdULS(thresholdSize);
-//        p.processSmartUlS("uls_test_file1.txt");
+//        p.processSmartUlS(fileName);
         
-        System.out.println("Contents before operations");
+        System.out.println("Contents of the file before operations:");
         p.displayCurrentContents();
         System.out.println("");
         
-        // You can do operations manually.
-        // OR read the file and do operations with
-        // them.
+        System.out.println("\nTesting generate() method: ");
+        System.out.println(p.generate());
         
-        // insertion demo
-        p.add(s, "123232", "N"); // ok add
-        p.add(s, "999999", "Q"); // ok add
-        p.add(s, "999999", "O"); // duplicate don't add
-        p.add(s, "999999", "O"); // duplicate don't add
+        System.out.println("\nTesting add(SmartULS,key,value) method: ");
+        p.add(s, p.generate(), "D");
+        p.add(s, "21212121", "C");
+        p.add(s, "72727272", "C");
         
-        // generate keys demo
-        p.add(s, p.generate(), p.randomCharValue()); // ok add
+        System.out.println("\nTesting remove(SmartULS,key) method: ");
+        p.remove("42670685");
+        p.remove("70160448");
+        
 
-        // removal demo
-        p.remove("12099753"); // exists
-        p.remove("3213123"); // not exists
-        p.remove("999"); // not exists
+        System.out.println("\nTesting getValues(SmartULS,key) method: ");
+        p.getValues("21212121");
+        p.getValues("70160448");
         
-        p.getValues("19477241"); 
+        System.out.println("\nTesting nextKey(SmartULS,key) method: ");
+        p.nextKey("42670685");
+        p.nextKey("21212121");
         
-        System.out.println("");
-        System.out.println("After adding and removal");
-        p.displayCurrentContents();
+        System.out.println("\nTesting prevKey(SmartULS,key) method: ");
+        p.prevKey("72727272");
+        p.prevKey("70120611");
         
-        p.nextKey("03325725");
-        p.prevKey("03325725");
+        System.out.println("\nTesting rangeKey(key1, key2) method: ");
+        System.out.println(p.rangeKey("60121357", "70147514"));
         
-        System.out.println(p.rangeKey("49927083", "3328203"));
-        
+        System.out.println("\nTesting allKeys(SmartULS) method: ");
         System.out.println(Arrays.toString(p.allKeys()));
+        
+        System.out.println("\nContents AFTER operations:");
+        p.displayCurrentContents();
         
         
     }
