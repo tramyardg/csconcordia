@@ -1,11 +1,11 @@
 package smart_uls;
 
-
 /**
  *
  * @author RAYMARTHINKPAD
  */
 public class SmartULS {
+
     private String ulsKey;
     private String ulsValue;
 
@@ -25,7 +25,8 @@ public class SmartULS {
         this.ulsValue = ulsValue;
     }
 
-    public SmartULS() { }
+    public SmartULS() {
+    }
 
     /**
      * @param v the value: 8 digits uls code
@@ -40,9 +41,21 @@ public class SmartULS {
     public String toString() {
         return "SmartULS{" + "ulsKey=" + ulsKey + ", ulsCode=" + ulsValue + '}';
     }
-    
+
     public int hashCode() {
         return ulsKey.hashCode();
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof SmartULS) {
+            SmartULS tempUls = (SmartULS) obj;
+
+            // Compare the two ulsKeys. If the ulskKeys are
+            // the same, then they are the same SmartULS.
+            return ulsKey.equalsIgnoreCase(tempUls.ulsKey);
+        } else {
+            return false;
+        }
     }
 
 }
